@@ -18,9 +18,10 @@ import {
 } from 'react-native';
 import Product from './component/Product';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import PropTypes from 'prop-types';
 
 // useState
-const App: () => Node = () => {
+const App = (props) => {
   const [count, setCount] = useState(0)
   const [showModal, setModal] = useState(false)
 
@@ -35,6 +36,7 @@ const App: () => Node = () => {
         Login with Facebook
       </Icon.Button>
       <Text style={{ fontSize: 50 }}>{count}</Text>
+      <Text style={{ fontSize: 50 }}>{props.name}, {props.course}</Text>
       <ScrollView horizontal={true}>
         <View style={{ height: 200, width: 200, backgroundColor: 'green' }}></View>
         <View style={{ height: 200, width: 200, backgroundColor: 'blue' }}></View>
@@ -56,6 +58,17 @@ const App: () => Node = () => {
     </View>
   );
 };
+
+App.prototype = {
+  name: PropTypes.string,
+  course: PropTypes.string.isRequired
+}
+
+App.defaultProps = {
+  name: "Hello Friends!!!",
+  course: "2"
+};
+
 
 
 // Life Cycle Method
