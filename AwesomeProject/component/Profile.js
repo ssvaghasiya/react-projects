@@ -6,12 +6,18 @@ import {
 
 class Profile extends Component {
 
+
+    constructor(props) {
+        super()
+        console.log(props.route.params)
+    }
+
     render() {
         return (
-        <View>
-            <Text>Profile Component</Text>
-        </View>
-      )
+            <View>
+                <Text>Profile Component</Text>
+            </View>
+        )
     }
 }
 

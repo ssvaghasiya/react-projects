@@ -92,9 +92,21 @@ function SettingsScreen() {
   );
 }
 
-function AboutUsScreen({ navigation }) {
+function AboutUsScreen({ route, navigation }) {
+  React.useEffect(() => {
+    if (route.params?.post) {
+      // Post updated, do something with `route.params.post`
+      // For example, send the post to the server
+      console.log("about us", route.params.post)
+    }
+  }, [route.params?.post]);
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <TextInput
+        placeholder="enter your email"
+        keyboardType="email-address"
+        returnKeyType="next"
+      ></TextInput>
       <Button
         onPress={() => navigation.navigate('Notifications')}
         title="Go to notifications"
@@ -103,18 +115,25 @@ function AboutUsScreen({ navigation }) {
   );
 }
 
-function NotificationsScreen({ navigation }) {
+function NotificationsScreen({ route, navigation }) {
+  console.log("NotificationsScreen", route.params)
+  let data = { name: "Anuj", email: 'anuj@gmail.com', }
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Notification Component</Text>
       <Button
-        onPress={() => navigation.navigate('Profile', {
-          name: "Anuj",
-          email: 'anuj@gmail.com',
-        })}
+        onPress={() => navigation.navigate('Profile', { data })}
         title="Go to Profile"
       />
-      <Button onPress={() => navigation.goBack()} title="Go back AboutUs" />
+      <Button onPress={() =>
+        // navigation.goBack({ params: { post: "xyzw" }, merge: true, })
+        navigation.navigate({
+          name: 'AboutUs',
+          params: { post: "xyzww" },
+          merge: true,
+        })
+      } title="Go back AboutUs" />
+
     </View>
   );
 }
@@ -158,7 +177,7 @@ class App extends Component {
 
         <Drawer.Navigator initialRouteName="AboutUs">
           <Drawer.Screen name="AboutUs" component={AboutUsScreen} />
-          <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+          <Drawer.Screen name="Notifications" component={NotificationsScreen} initialParams={{ itemId: 42 }} />
           <Drawer.Screen name="Profile" component={Profile} />
         </Drawer.Navigator>
       </NavigationContainer>

@@ -29,6 +29,10 @@ const App = (props) => {
     console.warn("use effect", count)
   })
 
+  function clickMe() {
+    alert("clicked")
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <Icon name="comments" size={30} color="#900" />
@@ -47,6 +51,7 @@ const App = (props) => {
       <Button title="- state" onPress={() => setCount(count - 1)} />
       <Button title="+ state" onPress={() => setCount(count + 1)} />
       <Button title="show Popup" onPress={() => setModal(true)} />
+      <Button title="Click me" onPress={() => clickMe()} />
       <Modal visible={showModal} transparent={true}>
         <View style={{ backgroundColor: "#000000aa", flex: 1 }}>
           <View style={{ margin: 50, backgroundColor: "#ffffff", flex: 1, borderRadius: 8, padding: 15 }}>
@@ -62,7 +67,7 @@ const App = (props) => {
 App.prototype = {
   name: PropTypes.string,
   course: PropTypes.string.isRequired
-}
+};
 
 App.defaultProps = {
   name: "Hello Friends!!!",
