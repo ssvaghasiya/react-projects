@@ -45,14 +45,16 @@ const FirstPage = ({ route, navigation }) => {
     };
 
     function checkThisBoxFirstList(itemID, index) {
-        firstList[index].checked = !firstList[index].checked
-        setFirstList(firstList)
+        let list = firstList
+        list[index].checked = !list[index].checked
+        setFirstList(list)
         setUpdateList(!isUpdateList)
     }
 
     function checkThisBoxSecondList(itemID, index) {
-        secondList[index].checked = !secondList[index].checked
-        setSecondList(secondList)
+        let list = secondList
+        list[index].checked = !list[index].checked
+        setSecondList(list)
         setUpdateList(!isUpdateList)
 
     }
@@ -60,8 +62,8 @@ const FirstPage = ({ route, navigation }) => {
     function createObj() {
         return {
             id: Number(Math.floor(Math.random() * 100)),
-            name: textInputVal + Number(Math.floor(Math.random() * 100)),
-            checked: true
+            name: textInputVal,
+            checked: false
         }
     }
 
@@ -107,6 +109,119 @@ const FirstPage = ({ route, navigation }) => {
         )
     }
 
+    function moveLeft() {
+        let selectedList = secondList.filter((value) =>
+            value.checked == true
+        );
+
+        let unSelectedList = secondList.filter((value) =>
+            value.checked != true
+        );
+
+        var tempList = []
+        for (let i in selectedList) {
+            let obj = firstList.filter((value) =>
+                value.id == selectedList[i].id
+            );
+            /* if (obj.length > 0) {
+                selectedList.splice(i, 1)
+                unSelectedList.push(selectedList[i])
+            } else {
+
+            } */
+            if (obj == 0) {
+                tempList.push(selectedList[i])
+            } else {
+                unSelectedList.push(selectedList[i])
+            }
+        }
+
+
+        if (tempList.length > 0) {
+            setSecondList(unSelectedList)
+            firstList.push.apply(firstList, tempList)
+            // setFirstList(firstList)
+            setUpdateList(!isUpdateList)
+
+        }
+    }
+
+    function moveRight() {
+        let selectedList = firstList.filter((value) =>
+            value.checked == true
+        );
+
+        let unSelectedList = firstList.filter((value) =>
+            value.checked != true
+        );
+
+        var tempList = []
+        for (let i in selectedList) {
+            let obj = secondList.filter((value) =>
+                value.id == selectedList[i].id
+            );
+            /* if (obj.length > 0) {
+                selectedList.splice(i, 1)
+                unSelectedList.push(selectedList[i])
+            } else {
+
+            } */
+            if (obj == 0) {
+                tempList.push(selectedList[i])
+            } else {
+                unSelectedList.push(selectedList[i])
+            }
+        }
+
+        if (tempList.length > 0) {
+            setFirstList(unSelectedList)
+            secondList.push.apply(secondList, tempList)
+            setUpdateList(!isUpdateList)
+
+        }
+    }
+
+    function copyLeft() {
+        let selectedList = secondList.filter((value) =>
+            value.checked == true
+        );
+        var tempList = []
+        for (let i in selectedList) {
+            let obj = firstList.filter((value) =>
+                value.id == selectedList[i].id
+            );
+            if (obj.length == 0) {
+                tempList.push(selectedList[i])
+            }
+        }
+        if (tempList.length > 0) {
+            firstList.push.apply(firstList, tempList)
+            setUpdateList(!isUpdateList)
+
+        }
+    }
+
+    function copyRight() {
+        let selectedList = firstList.filter((value) =>
+            value.checked == true
+        );
+        var tempList = []
+        for (let i in selectedList) {
+            let obj = secondList.filter((value) =>
+                value.id == selectedList[i].id
+            );
+            if (obj.length == 0) {
+                tempList.push(selectedList[i])
+            }
+        }
+
+        if (tempList.length > 0) {
+            secondList.push.apply(secondList, tempList)
+            setUpdateList(!isUpdateList)
+
+        }
+    }
+
     return (
         // Container start
         <View style={{ flex: 1 }} >
@@ -116,10 +231,9 @@ const FirstPage = ({ route, navigation }) => {
                     if (textInputVal) {
                         textInput.current.clear()
                         secondList.push(createObj())
-                        setSecondList(secondList)
+                        // setSecondList(secondList)
                         setUpdateList(!isUpdateList)
                     }
-                    console.log(secondList)
                 }}></Button>
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -127,26 +241,25 @@ const FirstPage = ({ route, navigation }) => {
                     style={{ flex: 1, borderColor: 'black', borderWidth: 1 }}
                     showsVerticalScrollIndicator={false}
                     data={firstList}
-                    keyExtractor={item => item.id.toString()}
+                    keyExtractor={item => item.id}
                     renderItem={({ item, index }) => renderFirstList(item, index)}
                     ItemSeparatorComponent={() => renderSeparator()}
                 />
 
                 <View style={{ justifyContent: 'center' }}>
                     <View style={{ marginTop: 15 }} >
-                        <Button title="Move Right" onPress={() => {
-
-                        }}></Button>
+                        <Button title="Move Right" onPress={() => moveRight()}></Button>
                     </View>
-                    <View style={{ marginTop: 15 }} onPress={() => {
+                    <View style={{ marginTop: 15 }} >
+                        <Button title="Move Left" onPress={() => moveLeft()}></Button>
+                    </View>
 
-                    }}>
-                        <Button title="Move Left" onPress={() => {
-                            let list = secondList.filter((item) => {
-                                item.checked
-                            });
-                            console.log(list)
-                        }}></Button>
+                    <View style={{ marginTop: 15 }} >
+                        <Button title="Copy Right" onPress={() => copyRight()}></Button>
+                    </View>
+
+                    <View style={{ marginTop: 15 }} >
+                        <Button title="Copy Left" onPress={() => copyLeft()}></Button>
                     </View>
                 </View>
 
@@ -154,7 +267,7 @@ const FirstPage = ({ route, navigation }) => {
                     style={{ flex: 1, borderColor: 'black', borderWidth: 1 }}
                     showsVerticalScrollIndicator={false}
                     data={secondList}
-                    keyExtractor={item => item.id.toString()}
+                    keyExtractor={item => item.id}
                     renderItem={({ item, index }) => renderSecondList(item, index)}
                     ItemSeparatorComponent={() => renderSeparator()}
                 />
