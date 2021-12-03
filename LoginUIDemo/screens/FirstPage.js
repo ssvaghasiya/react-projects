@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     StyleSheet,
     Dimensions,
@@ -14,31 +14,23 @@ import {
     FlatList,
     Image,
     ActivityIndicator,
+
 } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import api from '../api/api';
 import { COLORS, SIZES, FONTS } from '../constants';
-
+import { Checkbox } from 'react-native-paper';
 
 const FirstPage = ({ route, navigation }) => {
 
-    const [firstList, setFirstList] = useState([
-        {
-            id: 0,
-            name: "Nike Air Zoom Pegasus 36",
-        },
-        {
-            id: 1,
-            name: "Nike Metcon 5",
-        },
-        {
-            id: 2,
-            name: "Nike Air Zoom Kobe 1 Proto",
-        },
-    ]);
+    const [firstList, setFirstList] = useState([]);
     const [secondList, setSecondList] = useState([]);
+    const [isUpdateList, setUpdateList] = useState(false);
+    const textInput = useRef();
+    const [textInputVal, setTextInputVal] = useState("")
+
 
     function renderSeparator() {
         return (
@@ -51,20 +43,44 @@ const FirstPage = ({ route, navigation }) => {
             />
         );
     };
-    //handling onPress action  
-    function getListViewItem(item) {
-        Alert.alert(item.key);
+
+    function checkThisBoxFirstList(itemID, index) {
+        firstList[index].checked = !firstList[index].checked
+        setFirstList(firstList)
+        setUpdateList(!isUpdateList)
+    }
+
+    function checkThisBoxSecondList(itemID, index) {
+        secondList[index].checked = !secondList[index].checked
+        setSecondList(secondList)
+        setUpdateList(!isUpdateList)
+
+    }
+
+    function createObj() {
+        return {
+            id: Number(Math.floor(Math.random() * 100)),
+            name: textInputVal + Number(Math.floor(Math.random() * 100)),
+            checked: true
+        }
     }
 
     function renderFirstList(item, index) {
-
         return (
-            <TouchableOpacity style={{ paddingHorizontal: 12, paddingVertical: 12 }}
+            <TouchableOpacity style={{ paddingHorizontal: 12, paddingVertical: 12, flex: 1, flexDirection: 'row' }}
                 onPress={() => {
 
                 }}
             >
                 <Text style={{ color: 'black' }}>{item.name}</Text>
+                <Checkbox
+                    status={item.checked ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                        checkThisBoxFirstList(item.id, index);
+                    }}
+                    color={'green'}
+                    uncheckColor={'red'}
+                />
 
             </TouchableOpacity>
         )
@@ -73,13 +89,20 @@ const FirstPage = ({ route, navigation }) => {
     function renderSecondList(item, index) {
 
         return (
-            <TouchableOpacity style={{ paddingHorizontal: 12, paddingVertical: 12 }}
+            <TouchableOpacity style={{ paddingHorizontal: 12, paddingVertical: 12, flex: 1, flexDirection: 'row' }}
                 onPress={() => {
 
                 }}
             >
                 <Text style={{ color: 'black' }}>{item.name}</Text>
-
+                <Checkbox
+                    status={item.checked ? 'checked' : 'unchecked'}
+                    onPress={() => {
+                        checkThisBoxSecondList(item.id, index);
+                    }}
+                    color={'green'}
+                    uncheckColor={'red'}
+                />
             </TouchableOpacity>
         )
     }
@@ -88,8 +111,16 @@ const FirstPage = ({ route, navigation }) => {
         // Container start
         <View style={{ flex: 1 }} >
             <View style={{ flexDirection: 'row' }}>
-                <TextInput placeholder="enter value" style={{ flex: 1, borderBottomWidth: 1 }}></TextInput>
-                <Button title="Add"></Button>
+                <TextInput placeholder="enter value" style={{ flex: 1, borderBottomWidth: 1 }} ref={textInput} onChangeText={(value) => setTextInputVal(value.trim())}></TextInput>
+                <Button title="Add" onPress={() => {
+                    if (textInputVal) {
+                        textInput.current.clear()
+                        secondList.push(createObj())
+                        setSecondList(secondList)
+                        setUpdateList(!isUpdateList)
+                    }
+                    console.log(secondList)
+                }}></Button>
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 <FlatList
@@ -110,7 +141,12 @@ const FirstPage = ({ route, navigation }) => {
                     <View style={{ marginTop: 15 }} onPress={() => {
 
                     }}>
-                        <Button title="Move Left"></Button>
+                        <Button title="Move Left" onPress={() => {
+                            let list = secondList.filter((item) => {
+                                item.checked
+                            });
+                            console.log(list)
+                        }}></Button>
                     </View>
                 </View>
 
@@ -123,7 +159,7 @@ const FirstPage = ({ route, navigation }) => {
                     ItemSeparatorComponent={() => renderSeparator()}
                 />
             </View>
-        </View>
+        </View >
 
 
     );
