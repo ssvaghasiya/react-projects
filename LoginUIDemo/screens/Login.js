@@ -100,7 +100,6 @@ const Login = ({ navigation }) => {
                     </View>
 
                     <View style={{
-                        height: 120,
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
@@ -120,7 +119,19 @@ const Login = ({ navigation }) => {
                         </TouchableHighlight>
                     </View>
 
-
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <TouchableHighlight
+                            style={styles.loginBtn}
+                            onPress={() => {
+                                navigation.navigate('CustomNavDrawerStack')
+                            }}
+                        >
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Navigation Drawer</Text>
+                        </TouchableHighlight>
+                    </View>
 
 
                 </View>
@@ -146,7 +157,8 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width / 1.5,
         height: 50,
         justifyContent: 'center',
-        borderRadius: 100
+        borderRadius: 100,
+        marginTop: 40
     },
 });
 

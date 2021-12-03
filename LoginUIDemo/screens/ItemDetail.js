@@ -106,7 +106,7 @@ const ItemDetail = ({ route, navigation }) => {
                         <TouchableHighlight
                             style={styles.loginBtn}
                             onPress={() => {
-                                // navigation.navigate('Home')
+                                navigation.navigate('SectionLists')
                             }}
                         >
                             <Text style={{ textAlign: 'center', color: 'white' }}>Next</Text>
