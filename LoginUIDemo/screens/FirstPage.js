@@ -16,11 +16,6 @@ import {
     ActivityIndicator,
 
 } from 'react-native';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import axios from 'axios';
-import api from '../api/api';
-import { COLORS, SIZES, FONTS } from '../constants';
 import { Checkbox } from 'react-native-paper';
 
 const FirstPage = ({ route, navigation }) => {
@@ -123,12 +118,6 @@ const FirstPage = ({ route, navigation }) => {
             let obj = firstList.filter((value) =>
                 value.id == selectedList[i].id
             );
-            /* if (obj.length > 0) {
-                selectedList.splice(i, 1)
-                unSelectedList.push(selectedList[i])
-            } else {
-
-            } */
             if (obj == 0) {
                 tempList.push(selectedList[i])
             } else {
@@ -140,7 +129,6 @@ const FirstPage = ({ route, navigation }) => {
         if (tempList.length > 0) {
             setSecondList(unSelectedList)
             firstList.push.apply(firstList, tempList)
-            // setFirstList(firstList)
             setUpdateList(!isUpdateList)
 
         }
@@ -160,12 +148,7 @@ const FirstPage = ({ route, navigation }) => {
             let obj = secondList.filter((value) =>
                 value.id == selectedList[i].id
             );
-            /* if (obj.length > 0) {
-                selectedList.splice(i, 1)
-                unSelectedList.push(selectedList[i])
-            } else {
 
-            } */
             if (obj == 0) {
                 tempList.push(selectedList[i])
             } else {
@@ -231,7 +214,6 @@ const FirstPage = ({ route, navigation }) => {
                     if (textInputVal) {
                         textInput.current.clear()
                         secondList.push(createObj())
-                        // setSecondList(secondList)
                         setUpdateList(!isUpdateList)
                     }
                 }}></Button>

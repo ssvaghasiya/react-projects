@@ -14,6 +14,8 @@ target 'LoginUIDemo' do
 
   pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
 
+  pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
   target 'LoginUIDemoTests' do
     inherit! :complete
     # Pods for testing

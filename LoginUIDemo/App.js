@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
 } from 'react-native';
@@ -20,13 +20,19 @@ import SectionLists from './screens/SectionList';
 import CustomNavDrawerStack from './screens/CustomNavDrawerStack';
 import 'react-native-gesture-handler';
 import FirstPage from './screens/FirstPage';
+import SplashScreen from 'react-native-splash-screen'
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+
+  useEffect(() => {
+    SplashScreen.hide();
+  })
+
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="FirstPage" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: true }} />
