@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
     StyleSheet,
     Dimensions,
@@ -63,6 +63,8 @@ const FirstRoute = ({ route, navigation }) => {
 
 
 const SecondRoute = ({ route, navigation }) => {
+
+    const randomBool = useMemo(() => Math.random() < 0.5, [])
 
     const data = [
         {
@@ -210,23 +212,17 @@ const SecondRoute = ({ route, navigation }) => {
             text: 'Chair and Table',
         },
     ];
-    const items = [
-        { thumbnail: 'https://source.unsplash.com/user/c_v_r/1900x800', msg: "Hello" },
-        { thumbnail: 'https://source.unsplash.com/user/c_v_r/100x100', msg: "Hello" },
-        { thumbnail: 'http://www.w3.org/2008/site/images/logo-w3c-screen-lg', msg: "Hello" },
-        { thumbnail: 'https://picsum.photos/200/300', msg: "Hello" },
-    ];
-
 
 
     function renderItem(item) {
         return (
-            <View key={item.id} style={{ marginTop: 12, flex: 1 }}>
+            <View style={{ marginTop: 12, flex: 1, margin: 10 }}>
                 <Image
-                    source={{ uri: item.imgURL }}
+                    source={{ uri: item.item.imgURL }}
                     style={{
-                        height: 150,
+                        height: randomBool ? 150 : 280,
                         alignSelf: 'stretch',
+                        borderRadius: 10,
                     }}
                     resizeMode="cover"
                 />
@@ -234,7 +230,7 @@ const SecondRoute = ({ route, navigation }) => {
                     style={{
                         marginTop: 8,
                     }}>
-                    {item.text}
+                    {item.item.text}
                 </Text>
             </View>
         )
@@ -247,13 +243,9 @@ const SecondRoute = ({ route, navigation }) => {
 
         <View style={{ flex: 1, backgroundColor: '#673ab7' }} >
             <MasonryList
-                ListHeaderComponent={<View />}
-                contentContainerStyle={{
-                    paddingHorizontal: 24,
-                    alignSelf: 'stretch',
-                }}
                 numColumns={2}
                 data={data}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={(item) => renderItem(item)}
             />
         </View>
@@ -314,6 +306,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         borderRadius: 10,
+        alignSelf: 'stretch',
     },
 });
 

@@ -22,7 +22,6 @@ const ThirdPage = ({ route, navigation }) => {
 
     const [data, setData] = useState([])
     const [isLoading, setLoading] = useState(true)
-    const [isUpdateList, setIsUpdateList] = useState(false)
 
     useEffect(() => {
         getPhotosList()
@@ -69,7 +68,6 @@ const ThirdPage = ({ route, navigation }) => {
             }
         })
         setData(newData)
-        // setIsUpdateList(true)
     }
 
     function renderData(item, index) {
@@ -79,7 +77,7 @@ const ThirdPage = ({ route, navigation }) => {
                 <Image
                     style={styles.image}
                     source={{ uri: item.url }}
-                    resizeMode='contain'
+                    resizeMode='cover'
                 ></Image>
                 <View style={styles.wrapText}>
                     <Text>{item.title},{item.selected}</Text>
@@ -170,8 +168,11 @@ const styles = StyleSheet.create({
 
     },
     image: {
-        width: 100,
-        height: 150,
+        width: 120,
+        height: 120,
+        borderRadius: 150 / 2,
+        overflow: "hidden",
+        borderWidth: 3
     },
     wrapText: {
         flex: 1,
