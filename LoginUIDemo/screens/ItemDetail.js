@@ -24,7 +24,6 @@ import { COLORS, SIZES, FONTS } from '../constants';
 
 const ItemDetail = ({ route, navigation }) => {
 
-    console.log(route.params.item.id)
     const [userItem, setUserItem] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
