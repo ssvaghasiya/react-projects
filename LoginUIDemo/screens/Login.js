@@ -121,15 +121,35 @@ const Login = ({ navigation }) => {
 
                     <View style={{
                         justifyContent: 'center',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        flex: 1,
+                        flexDirection: 'row'
                     }}>
                         <TouchableHighlight
-                            style={styles.loginBtn}
+                            style={[{ flex: 1 }, styles.loginBtn]}
                             onPress={() => {
                                 navigation.navigate('CustomNavDrawerStack')
                             }}
                         >
                             <Text style={{ textAlign: 'center', color: 'white' }}>Navigation Drawer</Text>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight
+                            style={[{ flex: 1, marginStart: 15 }, styles.loginBtn]}
+                            onPress={() => {
+                                navigation.navigate('UseMemoDemo')
+                            }}
+                        >
+                            <Text style={{ textAlign: 'center', color: 'white' }}>useMemo Demo</Text>
+                        </TouchableHighlight>
+
+                        <TouchableHighlight
+                            style={[{ flex: 1, marginStart: 15 }, styles.loginBtn]}
+                            onPress={() => {
+                                navigation.navigate('Temp')
+                            }}
+                        >
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Explore</Text>
                         </TouchableHighlight>
                     </View>
 
