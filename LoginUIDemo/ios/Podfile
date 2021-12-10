@@ -18,6 +18,8 @@ target 'LoginUIDemo' do
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'LoginUIDemoTests' do
     inherit! :complete
     # Pods for testing

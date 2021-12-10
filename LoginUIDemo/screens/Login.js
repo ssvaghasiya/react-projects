@@ -111,8 +111,11 @@ const Login = ({ navigation }) => {
                                 } else {
                                     Toast.show("please enter email and password");
                                 } */
-
                                 navigation.navigate('Home')
+                                /* navigation.reset({
+                                    index: 0,
+                                    routes: [{ name: 'Home', params: { email: email, password: password, } }],
+                                }); */
                             }}
                         >
                             <Text style={{ textAlign: 'center', color: 'white' }}>Login</Text>

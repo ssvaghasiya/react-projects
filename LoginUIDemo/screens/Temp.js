@@ -29,6 +29,11 @@ const Temp = ({ route, navigation }) => {
             id: 2,
             title: 'Open Gallery',
             navId: 'OpenGallery'
+        },
+        {
+            id: 3,
+            title: 'Map',
+            navId: 'Map'
         }
 
     ])

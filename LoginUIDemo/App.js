@@ -23,6 +23,7 @@ import UseMemoDemo from './screens/UseMemoDemo';
 import UseCallBackDemo from './screens/UseCallBackDemo';
 import Temp from './screens/Temp';
 import OpenGallery from './screens/OpenGallery';
+import Map from './screens/Map';
 import SplashScreen from 'react-native-splash-screen'
 
 const Stack = createNativeStackNavigator();
@@ -46,6 +47,7 @@ const App = () => {
         <Stack.Screen name="UseCallBackDemo" component={UseCallBackDemo} options={{ headerShown: true }} />
         <Stack.Screen name="Temp" component={Temp} options={{ headerShown: true }} />
         <Stack.Screen name="OpenGallery" component={OpenGallery} options={{ headerShown: true }} />
+        <Stack.Screen name="Map" component={Map} options={{ headerShown: true }} />
       </Stack.Navigator>
 
     </NavigationContainer>

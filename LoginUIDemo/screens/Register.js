@@ -19,7 +19,7 @@ const Register = ({ route, navigation }) => {
     console.log(route.params)
     const { itemId, otherParam } = route.params;
 
-    
+
     return (
         // Container start
         <ScrollView
