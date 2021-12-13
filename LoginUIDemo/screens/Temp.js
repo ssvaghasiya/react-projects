@@ -34,6 +34,16 @@ const Temp = ({ route, navigation }) => {
             id: 3,
             title: 'Map',
             navId: 'Map'
+        },
+        {
+            id: 4,
+            title: 'Navigation Drawer',
+            navId: 'CustomNavDrawerStack'
+        },
+        {
+            id: 5,
+            title: 'useMemo Demo',
+            navId: 'UseMemoDemo'
         }
 
     ])

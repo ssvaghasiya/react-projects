@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
     StyleSheet,
     Dimensions,
@@ -14,11 +14,23 @@ import {
 } from 'react-native';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
+// services
+import Auth from '../services/auth';
+import Toast from 'react-native-simple-toast';
 
 const Register = ({ route, navigation }) => {
     console.log(route.params)
     const { itemId, otherParam } = route.params;
+    const [userName, setUserName] = useState()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
+    function isValidate() {
+        if (userName && email && password) {
+            return true
+        }
+        return false
+    }
 
     return (
         // Container start
@@ -57,11 +69,25 @@ const Register = ({ route, navigation }) => {
                     {/* Form input view */}
 
                     <View style={{ marginTop: 50 }}>
+
                         <View>
-                            <Text style={{ fontWeight: 'bold', color: 'black' }}>Email</Text>
+                            <Text style={{ fontWeight: 'bold', color: 'black' }}>User Name</Text>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                                <TextInput placeholder="enter your name"
+                                    style={{ flex: 1, borderBottomWidth: 1.0 }} returnKeyType="next"
+                                    onChangeText={(value) => setUserName(value.trim())}
+                                ></TextInput>
+                                <Icon name='rocket' size={20} color="#4632A1" />
+                            </View>
+                        </View>
+
+
+                        <View>
+                            <Text style={{ fontWeight: 'bold', color: 'black', marginTop: 10 }}>Email</Text>
                             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                                 <TextInput placeholder="enter your email"
-                                    keyboardType="email-address" style={{ flex: 1, borderBottomWidth: 1.0 }} returnKeyType="next"></TextInput>
+                                    keyboardType="email-address" style={{ flex: 1, borderBottomWidth: 1.0 }} returnKeyType="next"
+                                    onChangeText={(value) => setEmail(value.trim())}></TextInput>
                                 <Icon name='rocket' size={20} color="#4632A1" />
                             </View>
                         </View>
@@ -69,7 +95,8 @@ const Register = ({ route, navigation }) => {
                         <View style={{ marginTop: 10 }}>
                             <Text style={{ fontWeight: 'bold', color: 'black' }}>Password</Text>
                             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                                <TextInput secureTextEntry={true} placeholder="enter your password" style={{ flex: 1, borderBottomWidth: 1.0 }} returnKeyType="done"></TextInput>
+                                <TextInput secureTextEntry={true} placeholder="enter your password" style={{ flex: 1, borderBottomWidth: 1.0 }} returnKeyType="done"
+                                    onChangeText={(value) => setPassword(value.trim())}></TextInput>
                                 <Icon name="eye" size={20} color="#4632A1" />
                             </View>
                         </View>
@@ -82,7 +109,15 @@ const Register = ({ route, navigation }) => {
                         alignItems: 'center'
                     }}>
                         <TouchableHighlight
-                            style={styles.loginBtn}>
+                            style={styles.loginBtn}
+                            onPress={() => {
+                                if (isValidate()) {
+                                    Auth.signUp(userName, email, password)
+                                } else {
+                                    Toast.show("please enter username, email and password");
+                                }
+                            }}
+                        >
                             <Text style={{ textAlign: 'center', color: 'white' }}>Register</Text>
                         </TouchableHighlight>
                     </View>

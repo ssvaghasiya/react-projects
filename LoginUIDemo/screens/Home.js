@@ -15,10 +15,10 @@ import {
     Image,
     ActivityIndicator,
 } from 'react-native';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import api from '../api/api';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = ({ route, navigation }) => {
 
@@ -33,13 +33,14 @@ const Home = ({ route, navigation }) => {
         }
     }, [])
 
+
     function getUser() {
         api.get('https://gorest.co.in/public/v1/users')
             .then(function (response) {
                 // console.log("response", JSON.stringify(response.data))
                 setLoading(false)
                 setUserData(response.data.data)
-                console.warn("res", response.data.data)
+                // console.warn("res", response.data.data)
             })
             .catch(function (error) {
                 console.log("error", error)
@@ -177,6 +178,15 @@ const Home = ({ route, navigation }) => {
 
             </View>
 
+            <TouchableHighlight
+                style={[{}, styles.loginBtn]}
+                onPress={() => {
+                    navigation.navigate('Temp')
+                }}
+            >
+                <Text style={{ textAlign: 'center', color: 'white' }}>Explore</Text>
+            </TouchableHighlight>
+
         </View>
 
     );
@@ -193,6 +203,16 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.29,
         shadowRadius: 4.65,
         elevation: 7,
+    },
+
+    loginBtn: {
+        alignSelf: 'center',
+        backgroundColor: '#4632A1',
+        width: Dimensions.get('window').width / 1.5,
+        height: 50,
+        justifyContent: 'center',
+        borderRadius: 100,
+        marginBottom: 10
     },
 });
 

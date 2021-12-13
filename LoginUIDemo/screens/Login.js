@@ -15,6 +15,8 @@ import {
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Toast from 'react-native-simple-toast';
+// services
+import Auth from '../services/auth';
 
 const Login = ({ navigation }) => {
 
@@ -97,6 +99,16 @@ const Login = ({ navigation }) => {
                             </View>
                         </View>
 
+                        <View style={{ marginTop: 15, alignSelf: 'flex-end' }}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate('ForgetPassword')
+                                }}
+                            >
+                                <Text style={{ color: 'black' }}>Forgot Password?</Text>
+                            </TouchableOpacity>
+                        </View>
+
                     </View>
 
                     <View style={{
@@ -106,12 +118,12 @@ const Login = ({ navigation }) => {
                         <TouchableHighlight
                             style={styles.loginBtn}
                             onPress={() => {
-                                /* if (isValidate()) {
-                                    navigation.navigate('Home')
+                                if (isValidate()) {
+                                    Auth.signIn(email, password)
                                 } else {
                                     Toast.show("please enter email and password");
-                                } */
-                                navigation.navigate('Home')
+                                }
+                                // navigation.navigate('Home')
                                 /* navigation.reset({
                                     index: 0,
                                     routes: [{ name: 'Home', params: { email: email, password: password, } }],
@@ -120,41 +132,29 @@ const Login = ({ navigation }) => {
                         >
                             <Text style={{ textAlign: 'center', color: 'white' }}>Login</Text>
                         </TouchableHighlight>
+
+                        <TouchableHighlight
+                            style={styles.loginBtn}
+                            onPress={() => {
+                                Auth.googleLogin()
+                            }}
+                        >
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Google Sign In</Text>
+                        </TouchableHighlight>
+
+
+                        <TouchableHighlight
+                            style={styles.loginBtn}
+                            onPress={() => {
+                                Auth.facebookSignIn()
+                            }}
+                        >
+                            <Text style={{ textAlign: 'center', color: 'white' }}>Facebook Sign In</Text>
+                        </TouchableHighlight>
+
                     </View>
 
-                    <View style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flex: 1,
-                        flexDirection: 'row'
-                    }}>
-                        <TouchableHighlight
-                            style={[{ flex: 1 }, styles.loginBtn]}
-                            onPress={() => {
-                                navigation.navigate('CustomNavDrawerStack')
-                            }}
-                        >
-                            <Text style={{ textAlign: 'center', color: 'white' }}>Navigation Drawer</Text>
-                        </TouchableHighlight>
 
-                        <TouchableHighlight
-                            style={[{ flex: 1, marginStart: 15 }, styles.loginBtn]}
-                            onPress={() => {
-                                navigation.navigate('UseMemoDemo')
-                            }}
-                        >
-                            <Text style={{ textAlign: 'center', color: 'white' }}>useMemo Demo</Text>
-                        </TouchableHighlight>
-
-                        <TouchableHighlight
-                            style={[{ flex: 1, marginStart: 15 }, styles.loginBtn]}
-                            onPress={() => {
-                                navigation.navigate('Temp')
-                            }}
-                        >
-                            <Text style={{ textAlign: 'center', color: 'white' }}>Explore</Text>
-                        </TouchableHighlight>
-                    </View>
 
 
                 </View>
@@ -183,6 +183,18 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         marginTop: 40
     },
+    button: {
+        width: 300,
+        height: 45,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 20,
+        borderRadius: 10
+    },
+    text: {
+        fontSize: 16,
+        fontWeight: 'bold'
+    }
 });
 
 export default Login;
