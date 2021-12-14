@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import api from '../api/api';
 import { useNavigation } from '@react-navigation/native';
+import Video from 'react-native-video';
 
 const Home = ({ route, navigation }) => {
 
@@ -88,6 +89,8 @@ const Home = ({ route, navigation }) => {
                     navigation.navigate('ItemDetail', { item })
                 }}
             >
+
+
                 <View style={[{
                     flex: 1,
                     borderRadius: 0,
@@ -168,6 +171,14 @@ const Home = ({ route, navigation }) => {
             {isLoading && (
                 <ActivityIndicator size="large" color="#ff0000" />
             )}
+            <Video
+                source={{ uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4' }}        // the video file
+                paused={false}                  // make it start    
+                style={styles.backgroundVideo}  // any style you want
+                repeat={true}                   // make it a loop
+                resizeMode="cover"
+
+            />
             <View style={{ flex: 1, paddingBottom: 14 }}>
                 <FlatList
                     showsVerticalScrollIndicator={false}
@@ -213,6 +224,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 100,
         marginBottom: 10
+    },
+
+    backgroundVideo: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
     },
 });
 
