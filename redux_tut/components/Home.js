@@ -8,18 +8,21 @@ import {
 } from 'react-native';
 
 const Home = (props) => {
+    console.warn("home", props.data.length)
     return (
         <View style={{ flex: 1, alignItems: 'center' }}>
-            <Image
-                source={require('../assets/images/ic_cart.png')}
-                style={{
-                    width: 40,
-                    height: 40,
-                    marginTop: 15,
-                    marginEnd: 15,
-                    alignSelf: 'flex-end'
-                }}
-            />
+            <View style={{ alignSelf: 'flex-end' }}>
+                <Text style={{ color: 'black', fontSize: 20, alignSelf: 'center', marginTop: 15 }}>{props.data.length}</Text>
+                <Image
+                    source={require('../assets/images/ic_cart.png')}
+                    style={{
+                        width: 40,
+                        height: 40,
+                        marginEnd: 15,
+                        alignSelf: 'flex-end'
+                    }}
+                />
+            </View>
             <Text style={{ color: 'black', fontSize: 20 }}>Home Component</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image
@@ -40,7 +43,7 @@ const Home = (props) => {
                 <TouchableOpacity
                     style={{ backgroundColor: 'blue', height: 40, padding: 10, marginStart: 25 }}
                     onPress={() => {
-
+                        props.addToCartHandler({ price: 1000, name: 'i phone' })
                     }}>
                     <Text style={{ color: 'white' }}>Add to cart</Text>
                 </TouchableOpacity>
