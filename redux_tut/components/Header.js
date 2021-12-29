@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 const Header = (props) => {
+    console.warn("Header", props.data.length)
     return (
         <View style={{ alignSelf: 'flex-end' }}>
             <Text style={{ color: 'black', fontSize: 20, alignSelf: 'center', marginTop: 15 }}>{props.data.length}</Text>

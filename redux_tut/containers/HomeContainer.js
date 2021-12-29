@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addToCartHandler: data => dispatch(addToCart(data)),
-    removeToCartHandler: data => dispatch(removeToCart(data))
+    removeToCartHandler: data => dispatch(removeToCart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

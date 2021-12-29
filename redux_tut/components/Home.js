@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 const Home = (props) => {
-    console.warn("home", props.data.length)
     return (
         <View style={{ flex: 1, alignItems: 'center' }}>
             <Text style={{ color: 'black', fontSize: 20 }}>Home Component</Text>

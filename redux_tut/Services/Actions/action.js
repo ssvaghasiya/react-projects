@@ -10,7 +10,7 @@ export const addToCart = (data) => {
 }
 
 export const removeToCart = () => {
-    console.warn("action")
+    // console.warn("action")
     return {
         type: REMOVE_TO_CART
     }
