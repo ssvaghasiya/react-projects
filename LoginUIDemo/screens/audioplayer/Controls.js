@@ -13,19 +13,29 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const { width } = Dimensions.get('window').width
 
-const Controls = ({ albumcover }) => {
+const Controls = ({ togglePlayPauseBtn, pause, playNextSong, playPrevSong }) => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={playPrevSong}>
                 <AntDesign name='banckward' size={30} color="white"></AntDesign>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.playpause}>
-                <AntDesign name='playcircleo' size={30} color="#111436"></AntDesign>
-            </TouchableOpacity>
+            {pause ?
+                <TouchableOpacity style={styles.playpause}
+                    onPress={togglePlayPauseBtn}
+                >
+                    <AntDesign name='playcircleo' size={30} color="#111436"></AntDesign>
+                </TouchableOpacity>
+                :
+                <TouchableOpacity style={styles.playpause}
+                    onPress={togglePlayPauseBtn}
+                >
+                    <AntDesign name='pausecircleo' size={30} color="#111436"></AntDesign>
+                </TouchableOpacity>
+            }
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={playNextSong}>
                 <AntDesign name='forward' size={30} color="white"></AntDesign>
             </TouchableOpacity>
 

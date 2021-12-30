@@ -12,6 +12,7 @@ import {
 import AlbumCover from './AlbumCover';
 import AlbumDetails from './AlbumDetails';
 import Controls from './Controls';
+import Video from 'react-native-video';
 
 const TRACKS = [
     {
@@ -39,14 +40,34 @@ const TRACKS = [
 ];
 
 
-
 const AudioPlayer = ({ navigation }) => {
 
     const [selectedTrack, setSelectedTrack] = useState(0);
 
+    const [pause, setPause] = useState(false);
+
     const currentTrack = TRACKS[selectedTrack];
 
     console.log({ currentTrack })
+
+    function togglePlayPauseBtn() {
+        setPause(!pause)
+    }
+
+    function playNextSong() {
+        if (selectedTrack === TRACKS.length - 1)
+            setSelectedTrack(0)
+        else
+            setSelectedTrack(selectedTrack + 1)
+
+    }
+
+    function playPrevSong() {
+        if (selectedTrack === 0)
+            setSelectedTrack(TRACKS.length - 1)
+        else
+            setSelectedTrack(selectedTrack - 1)
+    }
 
     return (
         <>
@@ -55,7 +76,13 @@ const AudioPlayer = ({ navigation }) => {
             <View style={styles.container}>
                 <AlbumCover albumcover={currentTrack.albumArtUrl} />
                 <AlbumDetails trackName={currentTrack.title} artistName={currentTrack.artist} />
-                <Controls />
+                <Controls {...{ togglePlayPauseBtn }} {...{ pause }} {...{ playNextSong }} {...{ playPrevSong }} />
+
+                <Video
+                    source={{ uri: currentTrack.audioUrl }}
+                    paused={pause}
+                    audioOnly
+                />
             </View>
         </>
     );
