@@ -20,6 +20,8 @@ target 'LoginUIDemo' do
 
   pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
 
+  pod 'RNAudioRecorderPlayer', :path => '../node_modules/react-native-audio-recorder-player'
+
   target 'LoginUIDemoTests' do
     inherit! :complete
     # Pods for testing

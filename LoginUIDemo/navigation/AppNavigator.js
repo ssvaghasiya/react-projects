@@ -5,6 +5,7 @@ import UseCallBackDemo from '../screens/UseCallBackDemo';
 import Temp from '../screens/Temp';
 import OpenGallery from '../screens/OpenGallery';
 import Map from '../screens/Map';
+import AudioPlayer from '../screens/audioplayer/AudioPlayer';
 import Home from '../screens/Home';
 import ItemDetail from '../screens/ItemDetail';
 import SectionLists from '../screens/SectionList';
@@ -53,5 +54,6 @@ export default AppNavigator = () => (
         <Stack.Screen name="Temp" component={Temp} />
         <Stack.Screen name="OpenGallery" component={OpenGallery} />
         <Stack.Screen name="Map" component={Map} />
+        <Stack.Screen name="AudioPlayer" component={AudioPlayer} options={{ headerShown: false }}/>
     </Stack.Navigator>
 )
