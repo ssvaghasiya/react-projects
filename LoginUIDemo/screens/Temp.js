@@ -49,6 +49,11 @@ const Temp = ({ route, navigation }) => {
             id: 6,
             title: 'Audio Player',
             navId: 'AudioPlayer'
+        },
+        {
+            id: 7,
+            title: 'AudioTrackPlayer',
+            navId: 'AudioTrackPlayer'
         }
 
     ])

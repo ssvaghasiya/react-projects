@@ -71,7 +71,7 @@ const AudioPlayer = ({ navigation }) => {
 
     return (
         <>
-            {/* <StatusBar translucent /> */}
+            {/* <StatusBar barStyle='light-content' /> */}
 
             <View style={styles.container}>
                 <AlbumCover albumcover={currentTrack.albumArtUrl} />
@@ -82,6 +82,7 @@ const AudioPlayer = ({ navigation }) => {
                     source={{ uri: currentTrack.audioUrl }}
                     paused={pause}
                     audioOnly
+                    ignoreSilentSwitch="ignore"
                 />
             </View>
         </>

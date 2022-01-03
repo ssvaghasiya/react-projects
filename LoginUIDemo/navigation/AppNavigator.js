@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 // services
 import Auth from '../services/auth';
+import AudioTrackPlayer from '../screens/AudioTrackPlayer';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,5 +56,6 @@ export default AppNavigator = () => (
         <Stack.Screen name="OpenGallery" component={OpenGallery} />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="AudioPlayer" component={AudioPlayer} options={{ headerShown: false }}/>
+        <Stack.Screen name="AudioTrackPlayer" component={AudioTrackPlayer} options={{ headerShown: false }} />
     </Stack.Navigator>
 )
