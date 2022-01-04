@@ -54,6 +54,11 @@ const Temp = ({ route, navigation }) => {
             id: 7,
             title: 'AudioTrackPlayer',
             navId: 'AudioTrackPlayer'
+        },
+        {
+            id: 8,
+            title: 'Pagination Example',
+            navId: 'PaginationEx'
         }
 
     ])
@@ -106,11 +111,12 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         borderRadius: 100,
-        marginTop: 40
+        marginTop: 10,
+        marginBottom: 10
     },
     list: {
         flex: 1,
-        padding: 8
+        padding: 8,
     },
 });
 
