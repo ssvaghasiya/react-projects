@@ -4,6 +4,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import COLORS from '../../consts/colors';
 import HomeScreen from '../screens/HomeScreen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Text, StyleSheet, View, Image } from 'react-native';
+import CartScreen from '../screens/CartScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -16,8 +18,9 @@ const BottomNavigator = () => {
                     borderTopWidth: 0,
                     elevation: 0,
                 },
-                showLabel: false,
-                activeTintColor: COLORS.primary,
+                tabBarShowLabel: false,
+                tabBarActiveTintColor: COLORS.primary,
+                headerShown: false,
             }}
         >
             <Tab.Screen
@@ -43,7 +46,21 @@ const BottomNavigator = () => {
                 component={HomeScreen}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Icon name="search" color={color} size={28} />
+                        <View
+                            style={{
+                                height: 60,
+                                width: 60,
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                backgroundColor: COLORS.white,
+                                borderColor: COLORS.primary,
+                                borderWidth: 2,
+                                borderRadius: 30,
+                                top: -25,
+                                elevation: 5,
+                            }}>
+                            <Icon name="search" color={COLORS.primary} size={28} />
+                        </View>
                     ),
                 }}
             />
@@ -58,14 +75,14 @@ const BottomNavigator = () => {
             />
             <Tab.Screen
                 name="Cart"
-                component={HomeScreen}
+                component={CartScreen}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon name="shopping-cart" color={color} size={28} />
                     ),
                 }}
             />
-        
+
         </Tab.Navigator>
     )
 }
