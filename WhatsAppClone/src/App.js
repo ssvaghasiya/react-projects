@@ -43,7 +43,6 @@ const Navigation = () => {
       </Stack.Navigator>
     </NavigationContainer>
   )
-
 }
 
 const App = () => {

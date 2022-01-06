@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, Image, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
+import { launchImageLibrary } from 'react-native-image-picker';
 
 export default function SignupScreen({ navigation }) {
 
@@ -9,6 +10,12 @@ export default function SignupScreen({ navigation }) {
     const [password, setPassword] = useState('')
     const [image, setImage] = useState(null)
     const [showNext, setShowNext] = useState(false)
+
+    const pickImageAndUpload = () => {
+        launchImageLibrary({ quality: 0.5 }, (fileobj) => {
+            console.log(fileobj)
+        })
+    }
 
     return (
         <KeyboardAvoidingView behavior='position' style={{ flex: 1, justifyContent: 'center' }}>
@@ -45,7 +52,7 @@ export default function SignupScreen({ navigation }) {
                         />
                         <Button
                             mode='contained'
-                            onPress={() => { }}
+                            onPress={() => pickImageAndUpload()}
                         >Select profile picture</Button>
                         <Button
                             mode='contained'
