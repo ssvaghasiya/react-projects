@@ -18,6 +18,10 @@ import {
 } from 'react-native';
 import SignupScreen from './screens/SignupScreen';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import LoginScreen from './screens/LoginScreen';
+
 
 const theme = {
   ...DefaultTheme,
@@ -28,14 +32,29 @@ const theme = {
   },
 };
 
+const Stack = createNativeStackNavigator();
+
+const Navigation = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="signup" component={SignupScreen} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+
+}
+
 const App = () => {
 
   return (
     <>
+
       <PaperProvider theme={theme}>
         <StatusBar barStyle='dark-content' backgroundColor="green" />
         <View style={styles.container}>
-          <SignupScreen />
+          <Navigation />
         </View>
       </PaperProvider>
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, Image, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { View, Text, Image, StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { Button, TextInput } from 'react-native-paper'
 
-export default function SignupScreen() {
+export default function SignupScreen({ navigation }) {
 
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
@@ -49,7 +49,7 @@ export default function SignupScreen() {
                         >Select profile picture</Button>
                         <Button
                             mode='contained'
-                            onPress={() => {}}
+                            onPress={() => { }}
                         >Signup</Button>
                     </>
                     :
@@ -59,8 +59,7 @@ export default function SignupScreen() {
                     >Next</Button>
                 }
 
-
-
+                <TouchableOpacity onPress={() => navigation.goBack()}><Text style={{ textAlign: "center" }}>Already have an account ?</Text></TouchableOpacity>
             </View>
         </KeyboardAvoidingView>
     )
