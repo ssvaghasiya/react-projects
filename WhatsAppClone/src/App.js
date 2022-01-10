@@ -23,6 +23,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen';
 
 
+
 const theme = {
   ...DefaultTheme,
   roundness: 2,
@@ -46,10 +47,8 @@ const Navigation = () => {
 }
 
 const App = () => {
-
   return (
     <>
-
       <PaperProvider theme={theme}>
         <StatusBar barStyle='dark-content' backgroundColor="green" />
         <View style={styles.container}>
