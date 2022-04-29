@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -21,7 +21,10 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen';
-
+import auth from '@react-native-firebase/auth'
+import HomeScreen from './screens/HomeScreen';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import ChatScreen from './screens/ChatScreen';
 
 
 const theme = {
@@ -36,11 +39,47 @@ const theme = {
 const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
+  const [user, setuser] = useState('')
+  useEffect(() => {
+    const unregister = auth().onAuthStateChanged(userExist => {
+      if (userExist) {
+        setuser(userExist)
+      }
+      else setuser("")
+    })
+
+    return () => {
+      unregister()
+    }
+
+  }, [])
+
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="signup" component={SignupScreen} options={{ headerShown: false }} />
+      <Stack.Navigator screenOptions={{ headerTintColor: 'green' }}>
+        {user ?
+          <>
+            <Stack.Screen name="home" options={{
+              headerRight: () => <MaterialIcons
+                name="account-circle"
+                size={34}
+                color='green'
+                style={{ marginRight: 10 }}
+                onPress={() => auth().signOut()}
+              />
+            }} >
+              {props => <HomeScreen {...props} user={user} />}
+            </Stack.Screen>
+            <Stack.Screen name="chat" options={({ route }) => ({ title: route.params.name })}>
+              {props => <ChatScreen {...props} user={user} />}
+            </Stack.Screen>
+          </>
+          :
+          <>
+            <Stack.Screen name="login" component={LoginScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="signup" component={SignupScreen} options={{ headerShown: false }} />
+          </>
+        }
       </Stack.Navigator>
     </NavigationContainer>
   )

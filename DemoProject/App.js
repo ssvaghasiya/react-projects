@@ -21,7 +21,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import PropTypes from 'prop-types';
 
 // useState
-const App = (props) => {
+/* const App = (props) => {
   const [count, setCount] = useState(0)
   const [showModal, setModal] = useState(false)
 
@@ -72,12 +72,12 @@ App.prototype = {
 App.defaultProps = {
   name: "Hello Friends!!!",
   course: "2"
-};
+}; */
 
 
 
 // Life Cycle Method
-/* class App extends React.Component {
+class App extends React.Component {
   constructor() {
     super()
     console.warn("constructor")
@@ -144,6 +144,6 @@ App.defaultProps = {
       // </View>
     )
   }
-} */
+}
 
 export default App;
