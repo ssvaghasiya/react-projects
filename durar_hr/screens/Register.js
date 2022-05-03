@@ -29,16 +29,57 @@ import SplashScreen from 'react-native-splash-screen'
 import { useState, useEffect, useContext, createContext, useRef } from "react";
 import Toast from 'react-native-simple-toast';
 import CardView from 'react-native-cardview'
-import { useTogglePasswordVisibility } from './useTogglePasswordVisibility';
+import CheckBox from '@react-native-community/checkbox';
+import CountryPicker from 'react-native-country-picker-modal'
+
 
 const Register = () => {
 
   const theme = "light"
 
   const ref_input2 = useRef();
-  const [username, setUsername] = useState("")
   const [passwordVisible, setPasswordVisible] = useState(true);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(true);
+  const [isSelectedTerems, setSelectionTerms] = useState(false);
+  const [country, setCountry] = useState(null);
+  const [cca2, setCca2] = useState(null);
+  const [pickerShow, setPickerShow] = useState(false);
+  const [countryCode, setCountryCode] = useState('91');
+
+  const [username, setUsername] = useState("")
+  const [phone, setPhone] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  const [showModal, setModal] = useState(false)
+
+  function isValidate() {
+    if (!username) {
+      Toast.show("Please enter name");
+      return false
+    } else if (!phone) {
+      Toast.show("Please enter phone");
+      return false
+    } else if (!email) {
+      Toast.show("Please enter email");
+      return false
+    } else if (!password) {
+      Toast.show("Please enter password");
+      return false
+    } else if (!confirmPassword) {
+      Toast.show("Please enter confirm password");
+      return false
+    } else if (password !== confirmPassword) {
+      Toast.show("password and confirm password not matched");
+      return false
+    } else if (!isSelectedTerems) {
+      Toast.show("Please select terms and policy");
+      return false
+    }
+
+    return true
+  }
 
   useEffect(() => {
 
@@ -68,6 +109,23 @@ const Register = () => {
           <Text style={{ color: '#000', fontSize: 24, fontWeight: 'bold' }}>Sign Up</Text>
           <Text style={{ color: '#4D567D', fontSize: 12, textAlign: 'justify', lineHeight: 18, marginTop: 5 }}>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, e</Text>
 
+          {pickerShow && <CountryPicker
+            withAlphaFilter
+            withFilter
+            withFlag
+            withCallingCode
+            onSelect={(value) => {
+              setCountry(value)
+              setCca2(value.cca2)
+              setCountryCode(value.callingCode[0])
+            }}
+            cca2={cca2}
+            translation='eng'
+            onClose={() => setPickerShow(false)}
+            visible={pickerShow}
+            withCountryNameButton
+          />}
+
           <CardView
             style={{ paddingHorizontal: 10, marginTop: 20 }}
             cardElevation={8}
@@ -78,6 +136,7 @@ const Register = () => {
               underlineColorAndroid="transparent"
               placeholder="Name"
               placeholderTextColor={"#4D567D"}
+              onChangeText={(value) => setUsername(value.trim())}
             />
           </CardView>
 
@@ -87,11 +146,24 @@ const Register = () => {
             cardMaxElevation={8}
             cornerRadius={5}
           >
-            <TextInput
-              underlineColorAndroid="transparent"
-              placeholder="Phone Number"
-              placeholderTextColor={"#4D567D"}
-            />
+            <View style={styles.passwordSection}>
+              <TouchableOpacity onPress={() => setPickerShow(true)}>
+                {countryCode !== null && (
+                  <Text style={{
+                    color: "#4D567D"
+                  }}>+{countryCode}</Text>
+                )}
+              </TouchableOpacity>
+              <Text style={{
+                color: "#4D567D"
+              }}> - </Text>
+              <TextInput
+                underlineColorAndroid="transparent"
+                placeholder="Phone Number"
+                placeholderTextColor={"#4D567D"}
+                onChangeText={(value) => setPhone(value.trim())}
+              />
+            </View>
           </CardView>
 
           <CardView
@@ -104,6 +176,7 @@ const Register = () => {
               underlineColorAndroid="transparent"
               placeholder="Email Address"
               placeholderTextColor={"#4D567D"}
+              onChangeText={(value) => setEmail(value.trim())}
             />
           </CardView>
 
@@ -121,6 +194,7 @@ const Register = () => {
                 style={{ flex: 1 }}
                 secureTextEntry={passwordVisible}
                 placeholderTextColor={"#4D567D"}
+                onChangeText={(value) => setPassword(value.trim())}
               />
 
               <TouchableWithoutFeedback onPress={() => {
@@ -149,6 +223,7 @@ const Register = () => {
                 style={{ flex: 1 }}
                 secureTextEntry={confirmPasswordVisible}
                 placeholderTextColor={"#4D567D"}
+                onChangeText={(value) => setConfirmPassword(value.trim())}
               />
 
               <TouchableWithoutFeedback onPress={() => {
@@ -163,6 +238,16 @@ const Register = () => {
             </View>
           </CardView>
 
+          <View style={styles.checkboxContainer}>
+            <CheckBox
+              value={isSelectedTerems}
+              onValueChange={(newValue) => setSelectionTerms(newValue)}
+              style={styles.checkbox}
+              tintColors={{ true: '#34701A', false: '#34701A' }}
+            />
+            <Text style={styles.label}>I Agree with Terms & Conditions and Privacy Policy </Text>
+          </View>
+
 
           <View style={{
             justifyContent: 'center',
@@ -171,7 +256,9 @@ const Register = () => {
             <TouchableHighlight
               style={styles.loginBtn}
               onPress={() => {
-
+                if (isValidate()) {
+                  setModal(true)
+                }
               }}
             >
               <Text style={{ textAlign: 'center', color: 'white' }}>Register</Text>
@@ -180,6 +267,17 @@ const Register = () => {
           </View>
 
         </View>
+
+        <Modal visible={showModal} transparent={true} >
+          <View style={{ backgroundColor: "#000000aa", flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+            <View style={{ margin: 50, backgroundColor: "#ffffff", borderRadius: 8, paddingVertical: 40, paddingHorizontal: 20 }}>
+              <Text style={{ fontSize: 30, alignSelf: 'center' }}>Register Done</Text>
+              <View style={{ marginTop: 30 }}>
+                <Button title="close" onPress={() => setModal(false)} />
+              </View>
+            </View>
+          </View>
+        </Modal>
       </ScrollView>
     </SafeAreaView>
   );
@@ -223,7 +321,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 50,
     justifyContent: 'center',
-    marginTop: 40,
+    marginTop: 30,
+    marginBottom: 5,
     borderRadius: 200
   },
   circle: {
@@ -241,6 +340,28 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    marginTop: 15,
+    alignItems: 'center'
+  },
+  checkbox: {
+    alignSelf: "flex-start",
+    marginTop: 4,
+  },
+  label: {
+    margin: 8,
+    lineHeight: 16,
+    fontSize: 12,
+    color: "#333E47"
+  },
+  phoneContainer: {
+    width: '75%',
+    height: 50,
+  },
+  textInput: {
+    paddingVertical: 0,
   },
 });
 
