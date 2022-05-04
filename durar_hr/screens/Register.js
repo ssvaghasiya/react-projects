@@ -33,7 +33,7 @@ import CheckBox from '@react-native-community/checkbox';
 import CountryPicker from 'react-native-country-picker-modal'
 
 
-const Register = () => {
+const Register = ({ route, navigation }) => {
 
   const theme = "light"
 
@@ -256,9 +256,10 @@ const Register = () => {
             <TouchableHighlight
               style={styles.loginBtn}
               onPress={() => {
-                if (isValidate()) {
-                  setModal(true)
-                }
+                // if (isValidate()) {
+                // setModal(true)
+                navigation.navigate('PhoneVerification')
+                // }
               }}
             >
               <Text style={{ textAlign: 'center', color: 'white' }}>Register</Text>

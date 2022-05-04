@@ -132,13 +132,14 @@ const Login = ({ route, navigation }) => {
             <TouchableHighlight
               style={styles.loginBtn}
               onPress={() => {
-                if (isValidate()) {
-                  setModal(true)
-                  // Toast.show("Login Done");
-                } else {
-                  Toast.show("please enter username and password");
-                }
+                // if (isValidate()) {
+                //   setModal(true)
+                //   // Toast.show("Login Done");
+                // } else {
+                //   Toast.show("please enter username and password");
+                // }
 
+                setModal(true)
               }}
             >
               <Text style={{ textAlign: 'center', color: 'white' }}>Login</Text>
@@ -149,6 +150,7 @@ const Login = ({ route, navigation }) => {
           <View style={{ marginTop: 15, alignSelf: 'center' }}>
             <TouchableOpacity
               onPress={() => {
+
               }}
             >
               <Text >Forgot Password?</Text>
@@ -171,7 +173,17 @@ const Login = ({ route, navigation }) => {
             <View style={{ margin: 50, backgroundColor: "#ffffff", borderRadius: 8, paddingVertical: 40, paddingHorizontal: 20 }}>
               <Text style={{ fontSize: 30, alignSelf: 'center' }}>Login Done</Text>
               <View style={{ marginTop: 30 }}>
-                <Button title="close" onPress={() => setModal(false)} />
+                <Button title="Home" onPress={() => {
+                  setModal(false)
+                  navigation.navigate('Home')
+                }} />
+              </View>
+
+              <View style={{ marginTop: 30 }}>
+                <Button title="Home 1" onPress={() => {
+                  setModal(false)
+                  navigation.navigate('Home1')
+                }} />
               </View>
             </View>
           </View>
