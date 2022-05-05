@@ -30,14 +30,16 @@ import { useState, useEffect, useContext, createContext, useRef } from "react";
 import Toast from 'react-native-simple-toast';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import OtpInputs from './OtpInputs';
-// import OtpInputs from 'react-native-otp-inputs';
 
 const PhoneVerification = ({ route, navigation }) => {
 
   const theme = "light"
-  const [otp, setOtp] = useState(['-', '-', '-', '-', '-', '-']);
-  const [otpVal, setOtpVal] = useState('');
-  const [otpInput, setOtpInput] = useState('')
+  const [otp, setOtp] = useState('')
+
+  function getOtp(otp) {
+    console.log(otp);
+    setOtp(otp);
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#E5FFDA" }}>
@@ -48,47 +50,31 @@ const PhoneVerification = ({ route, navigation }) => {
       />
 
       <View
-        style={{ flex: 1, backgroundColor: "#E5FFDA" }}
+        style={{ flex: 1, backgroundColor: "#E5FFDA", justifyContent: 'center', }}
         showsVerticalScrollIndicator={false}
       >
+        <Text style={{ color: '#000', fontSize: 24, fontWeight: 'bold', alignSelf: 'center', marginTop: 20 }}>Phone Verification</Text>
+
         <OtpInputs />
 
-        {/*  <TextInput
-          onChangeText={value => {
-            if (isNaN(value)) {
-              return;
-            }
-            if (value.length > 6) {
-              return;
-            }
-            let val =
-              value + '------'.substr(0, 6 - value.length);
-            let a = [...val];
-            setOtpVal(a);
-            setOtp(value);
-          }}
-          keyboardType="numeric"
-          style={{ height: 0 }}
-          autoFocus={true}
-        />
-        <View style={styles.otpBoxesContainer}>
-          {[0, 1, 2, 3, 4, 5].map((item, index) => (
-            <Text style={styles.otpBox} key={index}>
-              {otp[item]}
-            </Text>
-          ))}
-        </View> */}
+        <View style={{
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <TouchableHighlight
+            style={styles.loginBtn}
+            onPress={() => {
+              navigation.navigate('PhoneVerification')
+            }}
+          >
+            <Text style={{ textAlign: 'center', color: 'white' }}>Register</Text>
+          </TouchableHighlight>
 
-        {/* <OtpInputs
-          style={styles.textInputContainer}
-          handleChange={(code) => console.log(code)}
-          numberOfInputs={6}
-          inputContainerStyles={styles.roundedTextInput}
-          inputStyles={styles.inputStyles}
-        /> */}
+        </View>
+
       </View>
 
-    </SafeAreaView>
+    </SafeAreaView >
   );
 };
 
@@ -129,6 +115,16 @@ const styles = StyleSheet.create({
   },
   inputStyles: {
     textAlign: 'center'
+  },
+  loginBtn: {
+    alignSelf: 'center',
+    backgroundColor: '#34701A',
+    width: "80%",
+    height: 50,
+    justifyContent: 'center',
+    marginTop: 30,
+    marginBottom: 5,
+    borderRadius: 200,
   },
 });
 

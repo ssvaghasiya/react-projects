@@ -8,76 +8,48 @@
 
 import React from 'react';
 import {
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
-    Text,
-    useColorScheme,
     View,
-    Dimensions,
-    ImageBackground,
-    TouchableHighlight,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
     TextInput,
-    Image,
-    Modal,
-    Button,
 } from 'react-native';
-import SplashScreen from 'react-native-splash-screen'
 import { useState, useEffect, useContext, createContext, useRef } from "react";
-import Toast from 'react-native-simple-toast';
+import CardView from 'react-native-cardview'
 
 const OtpInputs = ({ route, navigation }) => {
 
     const otpTextInput = [];
     const [otp, setOTP] = useState([])
-    const [number, setNumber] = useState(["", "", "", "", "", ""])
-    const [numberOutput, setNumberOutput] = useState([])
-    const [currentIndex, setCurrentIndex] = useState("")
+    const [number, setNumber] = useState(["", "", "", ""])
 
     useEffect(() => {
         otpTextInput[0].focus();
     }, [])
 
     const renderInputs = () => {
-        const inputs = Array(6).fill(0);
+        const inputs = Array(4).fill(0);
         const txt = inputs.map(
-            (i, j) => <View key={j} style={styles.txtMargin}><View >
-                <TextInput
-                    value={numberOutput[j]}
-                    style={[styles.inputRadius, { borderRadius: 10, width: 50, height: 50, backgroundColor: 'white' }]}
-                    keyboardType="numeric"
-                    onChangeText={v => {
-                        // if (currentIndex != j || j == 0) {
-                        //     console.log("OTP", currentIndex + " - " + j);
-                        //     setCurrentIndex(j)
-                        //     number[j] = v[v.length - 1]
-                        //     focusNext(j, v)
-                        // } else {
-                        //     number[j] = v[v.length - 2]
-                        //     focusNext(j, v)
-                        // }
-
-                        console.log("length", v.length);
-                        if (v.length > 1) {
+            (i, j) => <CardView
+                key={j}
+                style={styles.txtMargin}
+                cardElevation={8}
+                cardMaxElevation={8}
+                cornerRadius={5}>
+                <View >
+                    <TextInput
+                        style={[styles.inputRadius, { borderRadius: 10, width: 44, height: 44, backgroundColor: 'white' }]}
+                        keyboardType="numeric"
+                        onChangeText={v => {
+                            number[j] = v
                             focusNext(j, v)
-                        } else {
-                            const otpData = number;
-                            otpData[j] = v;
-                            setNumber(otpData);
-                            // number[j] = v
-                            numberOutput[j] = v
-                            focusNext(j, v)
-                        }
-                    }}
-                    onKeyPress={e => focusPrevious(e.nativeEvent.key, j)}
-                    ref={ref => {
-                        otpTextInput[j] = ref;
-                    }}
-                />
-            </View></View>
+                        }}
+                        maxLength={1}
+                        onKeyPress={e => focusPrevious(e.nativeEvent.key, j)}
+                        ref={ref => {
+                            otpTextInput[j] = ref;
+                        }}
+                    />
+                </View>
+            </CardView>
         );
         return txt;
     }
@@ -98,11 +70,11 @@ const OtpInputs = ({ route, navigation }) => {
         const otpData = otp;
         otpData[index] = value;
         setOTP(otpData);
-        // console.log("OTP", JSON.stringify(number));
+        console.log("OTP", JSON.stringify(number));
     }
 
     return (
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', alignSelf: 'center', marginTop: 20 }}>
             {renderInputs()}
         </View>
     );
@@ -110,8 +82,8 @@ const OtpInputs = ({ route, navigation }) => {
 
 
 const styles = StyleSheet.create({
-    gridPad: { padding: 30 },
-    txtMargin: { margin: 3 },
+    gridPad: { padding: 25 },
+    txtMargin: { margin: 8 },
     inputRadius: { textAlign: 'center' }
 });
 
