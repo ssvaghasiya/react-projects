@@ -15,7 +15,7 @@ import {
 import { useState, useEffect, useContext, createContext, useRef } from "react";
 import CardView from 'react-native-cardview'
 
-const OtpInputs = ({ route, navigation }) => {
+const OtpInputs = (props) => {
 
     const otpTextInput = [];
     const [otp, setOTP] = useState([])
@@ -70,7 +70,8 @@ const OtpInputs = ({ route, navigation }) => {
         const otpData = otp;
         otpData[index] = value;
         setOTP(otpData);
-        console.log("OTP", JSON.stringify(number));
+        props.getOtp(otp.join(''));
+        // console.log("OTP", JSON.stringify(number));
     }
 
     return (

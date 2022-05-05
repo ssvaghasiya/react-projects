@@ -55,7 +55,7 @@ const PhoneVerification = ({ route, navigation }) => {
       >
         <Text style={{ color: '#000', fontSize: 24, fontWeight: 'bold', alignSelf: 'center', marginTop: 20 }}>Phone Verification</Text>
 
-        <OtpInputs />
+        <OtpInputs getOtp={(otp) => getOtp(otp)} />
 
         <View style={{
           justifyContent: 'center',
