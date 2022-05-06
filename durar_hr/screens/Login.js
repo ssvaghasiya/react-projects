@@ -160,7 +160,7 @@ const Login = ({ route, navigation }) => {
           <View style={{ marginTop: 15, alignSelf: 'center', marginBottom: 20 }}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('PhoneVerification')
+                navigation.navigate('Register')
               }}
             >
               <Text style={{ color: 'blue', textAlign: 'center', }} >Don't have an account? Create Account</Text>
