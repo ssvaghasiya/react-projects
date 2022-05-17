@@ -7,14 +7,14 @@ const initialState = {
 export default function cartItems(state = [], action) {
     switch (action.type) {
         case ADD_TO_CART:
-            // console.warn("reducer", action)
+            console.log("reducer", action)
             return [
                 ...state,
                 { cartData: action.data }
             ]
             break;
         case REMOVE_TO_CART:
-            // console.warn("reducer", action)
+            console.log("reducer", action)
             state.pop()
             return [
                 ...state,

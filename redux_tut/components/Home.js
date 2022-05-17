@@ -11,6 +11,7 @@ const Home = (props) => {
     return (
         <View style={{ flex: 1, alignItems: 'center' }}>
             <Text style={{ color: 'black', fontSize: 20 }}>Home Component</Text>
+            <Text style={{ color: 'black', fontSize: 20, alignSelf: 'center', marginTop: 15 }}>{props.data.length}</Text>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image
                     source={{ uri: 'https://engineering.fb.com/wp-content/uploads/2016/04/yearinreview.jpg' }}
